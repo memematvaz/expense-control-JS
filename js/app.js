@@ -1,11 +1,12 @@
 const budgetAsk = prompt('¿Cual es tu presupuesto mensual?');
 
-
-
 let quantityBudget;
 
 const form = document.getElementById('add-expense')
-const primary = document.querySelector('.primary')
+
+const budgetSpan = document.querySelector('span#total');
+const restSpan = document.querySelector('span#rest');
+
 
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -36,11 +37,10 @@ class Budget {
 
 class Interface {
     addBudget(quantity) {
-        const budgetSpan = document.querySelector('span#total');
-        const restSpan = document.querySelector('span#rest');
 
-        budgetSpan.innerHTML = `${quantity}`;
-        restSpan.innerHTML = `${quantity}`;
+
+        budgetSpan.innerText = `${quantity}`;
+        restSpan.innerText = `${quantity}`;
     }
 
     responseSubmit(message, type) {
@@ -55,6 +55,7 @@ class Interface {
 
         }
         divMessage.appendChild(document.createTextNode(message));
+        const primary = document.querySelector('.primary')
         primary.insertBefore(divMessage, form)
 
         setTimeout(function() {
@@ -81,6 +82,37 @@ class Interface {
         expensesList.appendChild(li);
 
     }
+    budgetRest(quantity) {
+        const budgetRest = quantityBudget.budgetRest(quantity);
+
+        rest.innerText = `${budgetRest}`;
+
+        this.budgetCheck()
+     }
+    budgetCheck() {
+       const totalBudget = quantityBudget.budget;
+       const finalRest = quantityBudget.rest;
+
+       const rest = document.querySelector('.rest');
+
+
+       //25%
+        if((totalBudget/4)> finalRest) {
+            rest.classList.remove('alert-sucess', 'alert-warning');
+            rest.classList.add('alert-danger')
+
+      //50%
+        } else if ((totalBudget/2)>= finalRest) {
+            rest.classList.remove('alert-sucess', 'alert-danger');
+            rest.classList.add('alert-warning')
+        } else {
+            rest.classList.remove('alert-sucess', 'alert-warning');
+            rest.classList.add('alert-danger')
+        }
+
+     }
+
+
 
 }
 
@@ -99,11 +131,8 @@ function submit(e) {
     if (nameExpense === '' || quantityExpense === '' ||  isNaN(quantityExpense)) {   userInterface.responseSubmit('Hubo un error', 'error')
     } else {
         userInterface.responseSubmit('Agregado' , 'correcto');
-     
-        nameExpense === ''; 
-        quantityExpense === '';
-
         userInterface.addExpenseList(nameExpense, quantityExpense);
+        userInterface.budgetRest(quantityExpense)
     }
 
 
