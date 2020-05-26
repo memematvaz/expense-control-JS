@@ -1,8 +1,8 @@
     body {
         background: #000428;
-        /* fallback for old browsers */
-        background: -webkit-linear-gradient(to right, #004e92, #000428);
-        background: linear-gradient(to right, #004e92, #000428);
+       
+        background: -webkit-linear-gradient(to right, #3d5a39, #007bff);
+        background: linear-gradient(to right, #0f4f94, #3d5a39);
         font-family: 'Raleway', sans-serif;
     }
     
@@ -46,7 +46,7 @@
     h2 {
         font-family: 'Raleway', sans-serif;
         font-weight: 100;
-        color: #004e92;
+        color: #007bff;
         font-size: 22px;
         margin-bottom: 30px;
         font-weight: bold;
